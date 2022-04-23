@@ -239,7 +239,8 @@ int main()
     led.write(output);
 
     for(;;){
-        client.yield(500);
+        client.publish(topic, message);
+        client.yield(1000);
     }
 
     /*
