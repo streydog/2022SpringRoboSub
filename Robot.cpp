@@ -26,6 +26,8 @@ void initialize(){
     hardware.add(backRightMotor);
 
     hardware.initializeAll();
+
+    controller.initialize();
 }
 
 void loop(){

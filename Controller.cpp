@@ -11,26 +11,18 @@ void Controller::initializationSequence() {
 
     nsapi_error_t status = eth.connect();
 
-    printf("status: %d\n", status);
-
     SocketAddress this_address;
     eth.get_ip_address(&this_address);
-
-    printf("This IP Address: %s\n", this_address.get_ip_address());
-
 
     SocketAddress computer_address;
     computer_address.set_ip_address("192.168.0.10");
     computer_address.set_port(1883);
-
     
     TCPSocket socket;
     MQTTClient client(&socket);
-    int a = socket.open(&eth);
 
-    int b = socket.connect(computer_address);
-    printf("a: %d\n", a);
-    printf("b: %d\n", b);
+    socket.open(&eth);
+    socket.connect(computer_address);
 
     MQTTPacket_connectData connect_data = MQTTPacket_connectData_initializer;
 
