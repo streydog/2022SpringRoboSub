@@ -1,0 +1,2 @@
+void initialize();
+void loop();
