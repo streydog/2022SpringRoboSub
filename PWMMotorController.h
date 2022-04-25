@@ -7,7 +7,7 @@ class PWMMotorController : public Initializable {
     public:
         PWMMotorController(PinName pin, int boundMax, int boundMin);
         void set(float speed);
-        void setMicroseconds(int us);
+        void set_microseconds(int us);
     private:
         PwmOut pwm;
         PinName pin;

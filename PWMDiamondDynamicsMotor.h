@@ -1,9 +1,12 @@
+#pragma once
+
 #include "PWMMotorController.h"
+#include "Initializable.h"
 
 class PWMDiamondDynamicsMotor : public PWMMotorController{
     public:
         PWMDiamondDynamicsMotor(PinName pin);
     protected:
-        void initializationSequence() override;
-        void resetSequence() override;
+        void initialization_sequence() override;
+        void reset_sequence() override;
 };

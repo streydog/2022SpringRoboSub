@@ -8,17 +8,25 @@ Initializable::Initializable(){
 void Initializable::initialize(){
     if(sequenceStarted == false){
         sequenceStarted = true;
-        initializationSequence();
+        initialization_sequence();
         initialized = true;
     }
 }
 
-bool Initializable::isInitialized() const{
+bool Initializable::is_initialized() const{
     return initialized;
 }
 
 void Initializable::reset(){
-    resetSequence();
+    reset_sequence();
     initialized = false;
     sequenceStarted = false;
+}
+
+void Initializable::initialization_sequence(){
+    // nothing
+}
+
+void Initializable::reset_sequence(){
+    // nothing
 }

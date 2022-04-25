@@ -9,7 +9,7 @@
 
 
 int main()
-{
+{   
     initialize();
     while(true){
         loop();

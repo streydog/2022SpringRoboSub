@@ -17,6 +17,6 @@ void PWMMotorController::set(float speed){
     pwm.pulsewidth_us(boundMin + (float(boundMax - boundMin) / 2.0) * (speed + 1.0));
 }
 
-void PWMMotorController::setMicroseconds(int us){
+void PWMMotorController::set_microseconds(int us){
     pwm.pulsewidth_us(us);
 }

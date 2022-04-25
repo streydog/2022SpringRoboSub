@@ -1,9 +1,10 @@
 #include "HardwareRegistry.h"
+#include "Initializable.h"
 
 HardwareRegistry::HardwareRegistry(){}
 
 // I have no clue if this will work
-void HardwareRegistry::initializeAll(){
+void HardwareRegistry::initialize_all(){
     Thread* threads[hardware.size()];
     for(int i = 0; i<hardware.size(); i++){
         threads[i] = new Thread();
