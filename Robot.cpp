@@ -32,14 +32,11 @@ void initialize(){
     Nolan
     */
 
-    /*
-    hardware.add(frontLeftMotor);
-    hardware.add(frontRightMotor);
-    hardware.add(backLeftMotor);
-    hardware.add(backRightMotor);
     
-    hardware.initializeAll();
-    */
+    hardware.add(&frontLeftMotor);
+    
+    hardware.initialize_all();
+    
 
     offboardComputerInterface.initialize();
 }
@@ -48,11 +45,13 @@ void loop(){
     float speed = offboardComputerInterface.get_speed();
 
     // TODO: this is for debug purposes, remove this later. 
-    speed *= 1000000;
+    //speed *= 1000000;
 
-    printf("speed: %d\n", (int)speed);
+    //printf("speed: %d\n", (int)speed);
 
-    ThisThread::sleep_for(500ms);
+    //ThisThread::sleep_for(500ms);
+
+    frontLeftMotor.set(speed);
 
     // TODO: I commented this out because of the issue I described in initialize()
     //frontLeftMotor.set(speed);

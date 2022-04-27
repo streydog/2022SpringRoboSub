@@ -7,6 +7,14 @@ PWMMotorController::PWMMotorController(PinName pin, int boundMax, int boundMin) 
     this->boundMin = boundMin;
 }
 
+void PWMMotorController::initialization_sequence(){
+    printf("default PWM pls override");
+}
+
+void PWMMotorController::reset_sequence(){
+    // nothing
+}
+
 void PWMMotorController::set(float speed){
     if(speed > 1.0){
         speed = 1.0;

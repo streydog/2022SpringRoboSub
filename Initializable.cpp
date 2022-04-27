@@ -25,6 +25,7 @@ void Initializable::reset(){
 
 void Initializable::initialization_sequence(){
     // nothing
+    printf("Default init pls override");
 }
 
 void Initializable::reset_sequence(){

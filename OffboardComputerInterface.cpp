@@ -1,6 +1,7 @@
 #include "OffboardComputerInterface.h"
 #include <string>
 #include "Robot.h"
+#include <functional>
 
 OffboardComputerInterface::OffboardComputerInterface(){
     // TODO: initializations or something? 
@@ -26,7 +27,6 @@ void OffboardComputerInterface::set_speed(float speed){
 }
 
 void OffboardComputerInterface::initialization_sequence() {
-    printf("got here\n");
     eth.set_network("192.168.0.9", "255.255.255.0", "192.168.0.1");
 
     nsapi_error_t status = eth.connect();
@@ -37,11 +37,11 @@ void OffboardComputerInterface::initialization_sequence() {
     computerAddress.set_port(1883);
     
     socket.open(&eth);
-    socket.connect(computerAddress);
+    int a = socket.connect(computerAddress);
 
     MQTTPacket_connectData conectData = MQTTPacket_connectData_initializer;
 
-    client->connect(conectData);
+    int b = client->connect(conectData);
 
     thread.start(callback([this](){this->listen();}));
 }
@@ -56,7 +56,19 @@ void speed_mqtt_callback(MQTT::MessageData &md){
     strcpy(incomingMessage, (char*)md.message.payload);
     incomingMessage[message.payloadlen] = '\0';
 
+    float speed = stof(incomingMessage);
+
+    offboardComputerInterface.set_speed(speed);
     
+    free(incomingMessage);
+}
+
+void OffboardComputerInterface::speed_message_received(MQTT::MessageData &md){
+    MQTT::Message &message = md.message;
+    char* incomingMessage = (char*)malloc(message.payloadlen + 1);
+    strcpy(incomingMessage, (char*)md.message.payload);
+    incomingMessage[message.payloadlen] = '\0';
+
     float speed = stof(incomingMessage);
 
     offboardComputerInterface.set_speed(speed);
@@ -67,6 +79,8 @@ void speed_mqtt_callback(MQTT::MessageData &md){
 void OffboardComputerInterface::listen(){
     const char* sub_topic = "test/speed";
     MQTT::QoS qos = MQTT::QOS0;
+
+    //std::function<void(MQTT::MessageData)> func = [this](MQTT::MessageData &md){this->speed_message_received(md);};
 
     client->subscribe(sub_topic, qos, speed_mqtt_callback);
 

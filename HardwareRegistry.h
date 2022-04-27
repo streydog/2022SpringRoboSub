@@ -7,7 +7,7 @@ class HardwareRegistry {
     public:
         HardwareRegistry();
         void initialize_all();
-        void add(Initializable periphery);
+        void add(Initializable* periphery);
     private:
-        vector<Initializable> hardware;
+        vector<Initializable*> hardware;
 };
