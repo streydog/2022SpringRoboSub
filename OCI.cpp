@@ -112,16 +112,16 @@ void mqtt_callback(MQTT::MessageData &md){
     strcpy(incomingMessage, (char*)md.message.payload);
     incomingMessage[message.payloadlen] = '\0';
 
-    if(topic == "/robot/speed"){
+    if(topic == "/robot/control/speed"){
         speed = stof(incomingMessage);
     }
-    else if(topic == "/robot/strafe"){
+    else if(topic == "/robot/control/strafe"){
         strafe = stof(incomingMessage);
     }
-    else if(topic == "/robot/rotation"){
+    else if(topic == "/robot/control/rotation"){
         rotation = stof(incomingMessage);
     }
-    else if(topic == "/robot/depth"){ // TODO: Add whatever topics we need to subscribe to.
+    else if(topic == "/robot/control/depth"){ // TODO: Add whatever topics we need to subscribe to.
         depth = stof(incomingMessage);
     }
     else{
