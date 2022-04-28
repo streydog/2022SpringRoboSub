@@ -63,7 +63,7 @@ MQTTSynchronousVariable<float> depth = 0.0;
 /**
  *  Updates the values of all MQTTSynchronousVariables
  */
-void update_values(){
+void OCI::update_values(){
     speed.update_value();
     strafe.update_value();
     rotation.update_value();
