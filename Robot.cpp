@@ -9,6 +9,8 @@
 #include "Initializable.h"
 #include <MQTTClientMbedOs.h>
 
+#include "OCI.h"
+
 HardwareRegistry hardware;
 PWMDiamondDynamicsMotor frontLeftMotor(FRONT_LEFT_MOTOR_PORT);
 PWMDiamondDynamicsMotor frontRightMotor(FRONT_RIGHT_MOTOR_PORT);
@@ -19,18 +21,6 @@ OffboardComputerInterface offboardComputerInterface;
 
 
 void initialize(){
-    /*
-    David, 
-    
-    The following lines of code work initially, but including it makes the OS throw a
-    HardFault error and crash after the mqtt_callback function is called. If I comment the following code out,
-    the callback function works properly and I get to call it multiple times. 
-
-    I imagine it has something to do with your comment in HardwareRegister::add() that says, "I have no clue if this will work".
-
-    Thanks,
-    Nolan
-    */
 
     
     hardware.add(&frontLeftMotor);
@@ -38,11 +28,13 @@ void initialize(){
     hardware.initialize_all();
     
 
-    offboardComputerInterface.initialize();
+    //offboardComputerInterface.initialize();
+
+    OCI::start();
 }
 
 void loop(){
-    float speed = offboardComputerInterface.get_speed();
+    //float speed = offboardComputerInterface.get_speed();
 
     // TODO: this is for debug purposes, remove this later. 
     //speed *= 1000000;
@@ -51,7 +43,7 @@ void loop(){
 
     //ThisThread::sleep_for(500ms);
 
-    frontLeftMotor.set(speed);
+    frontLeftMotor.set(OCI::get_speed());
 
     // TODO: I commented this out because of the issue I described in initialize()
     //frontLeftMotor.set(speed);
