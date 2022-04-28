@@ -1,4 +1,6 @@
+#pragma once
+
 namespace OCI {
     extern float get_speed();
-    extern float start();
+    extern void start();
 }
