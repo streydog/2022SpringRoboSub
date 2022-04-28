@@ -12,6 +12,7 @@ int main()
 {   
     initialize();
     while(true){
+        OCI::update_values();
         loop();
     }
     return 0;

@@ -14,17 +14,61 @@ TCPSocket socket;
 MQTTClient* client;
 Mutex OCI_mutex;
 
-volatile float speed;
+/**
+ *  Variable whos value can be synchronized from one thread to another.
+ *  
+ *  The "asynchronous" value is the value from the source thread.
+ *  The "synchronous" value is the value for the destination thread. It will not change until update_value() is called.
+ *  
+ *  Designed to be a drop in replacement for the variable of the same type. Mutex is handled within the class.
+ *  Assignment always changes the asynchronous value.
+ *  Can be implicitly cast to variable of the type. This will always return the synchronous value.
+ */
+template<typename T>
+class MQTTSynchronousVariable{
+    public:
+        MQTTSynchronousVariable(T value){
+            async_value = value;
+        }
+        MQTTSynchronousVariable(){}
+        void update_value(){
+            OCI_mutex.lock();
+            sync_value = async_value;
+            OCI_mutex.unlock();
+        }
+        MQTTSynchronousVariable& operator = (T value){
+            OCI_mutex.lock();
+            async_value = value;
+            OCI_mutex.unlock();
+            return *this;
+        }
+        operator T (){
+            OCI_mutex.lock();
+            float temp_value = sync_value;
+            OCI_mutex.unlock();
+            return temp_value;
+        }
+    private:
+        T sync_value;
+        volatile T async_value;
+};
+
+
+MQTTSynchronousVariable<float> speed;
+
+
+/**
+ *  Updates the values of all MQTTSynchronousVariables
+ */
+void update_values(){
+    speed.update_value();
+}
 
 /**
  *  TODO: There's probably more than one speed.
  */
 float OCI::get_speed(){
-    OCI_mutex.lock();
-    float tempSpeed = speed;
-    OCI_mutex.unlock();
-
-    return tempSpeed;
+    return speed;
 }
 
 /**
@@ -55,10 +99,7 @@ void mqtt_callback(MQTT::MessageData &md){
 
     if(topic == "/robot/speed"){
         float data = stof(incomingMessage);
-
-        OCI_mutex.lock();
         speed = data;
-        OCI_mutex.unlock();
     }else if(topic == "/robot/other"){ // TODO: Add whatever topics we need to subscribe to.
 
     }else{
@@ -106,7 +147,7 @@ void OCI::start() {
 }
 
 /**
- *  Stop?
+ *  TODO: Method to stop listening, disconnect from the broker, and close the socket
  */
 void stop() {
 

@@ -9,8 +9,6 @@
 #include "Initializable.h"
 #include <MQTTClientMbedOs.h>
 
-#include "OCI.h"
-
 HardwareRegistry hardware;
 PWMDiamondDynamicsMotor frontLeftMotor(FRONT_LEFT_MOTOR_PORT);
 PWMDiamondDynamicsMotor frontRightMotor(FRONT_RIGHT_MOTOR_PORT);

@@ -9,6 +9,8 @@
 #include "Initializable.h"
 #include <MQTTClientMbedOs.h>
 
+#include "OCI.h"
+
 #define FRONT_LEFT_MOTOR_PORT PF_9
 #define FRONT_RIGHT_MOTOR_PORT PF_8
 #define BACK_LEFT_MOTOR_PORT PF_7
