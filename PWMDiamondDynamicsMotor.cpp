@@ -1,5 +1,4 @@
 #include "PWMDiamondDynamicsMotor.h"
-#include "Initializable.h"
 
 PWMDiamondDynamicsMotor::PWMDiamondDynamicsMotor(PinName pin) : PWMMotorController(pin, 2000, 1000){}
 

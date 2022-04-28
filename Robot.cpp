@@ -1,14 +1,5 @@
 #include "Robot.h"
 
-#include "ThisThread.h"
-#include "mbed.h"
-
-#include "HardwareRegistry.h"
-#include "PWMDiamondDynamicsMotor.h"
-#include "OffboardComputerInterface.h"
-#include "Initializable.h"
-#include <MQTTClientMbedOs.h>
-
 HardwareRegistry hardware;
 PWMDiamondDynamicsMotor frontLeftMotor(FRONT_LEFT_MOTOR_PORT);
 PWMDiamondDynamicsMotor frontRightMotor(FRONT_RIGHT_MOTOR_PORT);

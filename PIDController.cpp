@@ -1,5 +1,4 @@
 #include "PIDController.h"
-#include <ctime>
 
 PIDController::PIDController(float Kp, float Ki, float Kd){
     this->Kp = Kp;

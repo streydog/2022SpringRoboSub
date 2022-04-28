@@ -1,5 +1,9 @@
 #pragma once
 
+#include <string>
+#include <functional>
+#include "Robot.h"
+
 namespace OCI {
     extern float get_speed();
     extern float get_strafe();

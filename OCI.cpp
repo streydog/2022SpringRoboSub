@@ -1,9 +1,5 @@
 #include "OCI.h"
 
-#include <string>
-#include <functional>
-#include "Robot.h"
-
 using namespace OCI;
 
 Thread thread;

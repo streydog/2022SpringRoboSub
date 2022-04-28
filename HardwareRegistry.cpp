@@ -1,5 +1,4 @@
 #include "HardwareRegistry.h"
-#include "Initializable.h"
 
 HardwareRegistry::HardwareRegistry(){}
 
