@@ -54,7 +54,10 @@ class MQTTSynchronousVariable{
 };
 
 
-MQTTSynchronousVariable<float> speed;
+MQTTSynchronousVariable<float> speed = 0.0;
+MQTTSynchronousVariable<float> strafe = 0.0;
+MQTTSynchronousVariable<float> rotation = 0.0;
+MQTTSynchronousVariable<float> depth = 0.0;
 
 
 /**
@@ -62,6 +65,9 @@ MQTTSynchronousVariable<float> speed;
  */
 void update_values(){
     speed.update_value();
+    strafe.update_value();
+    rotation.update_value();
+    depth.update_value();
 }
 
 /**
@@ -69,6 +75,15 @@ void update_values(){
  */
 float OCI::get_speed(){
     return speed;
+}
+float OCI::get_strafe(){
+    return strafe;
+}
+float OCI::get_rotation(){
+    return rotation;
+}
+float OCI::get_depth(){
+    return depth;
 }
 
 /**
@@ -98,11 +113,18 @@ void mqtt_callback(MQTT::MessageData &md){
     incomingMessage[message.payloadlen] = '\0';
 
     if(topic == "/robot/speed"){
-        float data = stof(incomingMessage);
-        speed = data;
-    }else if(topic == "/robot/other"){ // TODO: Add whatever topics we need to subscribe to.
-
-    }else{
+        speed = stof(incomingMessage);
+    }
+    else if(topic == "/robot/strafe"){
+        strafe = stof(incomingMessage);
+    }
+    else if(topic == "/robot/rotation"){
+        rotation = stof(incomingMessage);
+    }
+    else if(topic == "/robot/depth"){ // TODO: Add whatever topics we need to subscribe to.
+        depth = stof(incomingMessage);
+    }
+    else{
         send_error_message("The robot received an invalid callback.");
     }
     

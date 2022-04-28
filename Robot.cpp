@@ -22,6 +22,9 @@ void initialize(){
 
     
     hardware.add(&frontLeftMotor);
+    hardware.add(&frontRightMotor);
+    hardware.add(&backLeftMotor);
+    hardware.add(&backRightMotor);
     
     hardware.initialize_all();
     
@@ -34,15 +37,12 @@ void initialize(){
 void loop(){
     //float speed = offboardComputerInterface.get_speed();
 
-    // TODO: this is for debug purposes, remove this later. 
-    //speed *= 1000000;
+    float speed = OCI::get_speed();
+    float strafe = OCI::get_strafe();
+    float rotation = OCI::get_rotation();
 
-    //printf("speed: %d\n", (int)speed);
-
-    //ThisThread::sleep_for(500ms);
-
-    frontLeftMotor.set(OCI::get_speed());
-
-    // TODO: I commented this out because of the issue I described in initialize()
-    //frontLeftMotor.set(speed);
+    frontLeftMotor.set(speed+strafe+rotation);
+    frontRightMotor.set(speed-strafe-rotation);
+    backLeftMotor.set(-speed+strafe-rotation);
+    backRightMotor.set(-speed-strafe+rotation);
 }
