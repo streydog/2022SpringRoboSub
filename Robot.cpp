@@ -6,6 +6,8 @@ PWMDiamondDynamicsMotor frontRightMotor(FRONT_RIGHT_MOTOR_PORT);
 PWMDiamondDynamicsMotor backLeftMotor(BACK_LEFT_MOTOR_PORT);
 PWMDiamondDynamicsMotor backRightMotor(BACK_RIGHT_MOTOR_PORT);
 
+MPU6050 mpu(IMU_SDA_PIN, IMU_SCL_PIN);
+
 OffboardComputerInterface offboardComputerInterface;
 
 
@@ -16,6 +18,8 @@ void initialize(){
     hardware.add(&frontRightMotor);
     hardware.add(&backLeftMotor);
     hardware.add(&backRightMotor);
+
+    hardware.add(&mpu);
     
     hardware.initialize_all();
     
