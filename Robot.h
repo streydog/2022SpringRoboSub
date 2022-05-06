@@ -20,6 +20,9 @@
 #define IMU_SCL_PIN PE_4
 #define IMU_SDA_PIN PF_4
 
+#define INT_LOOP_PERIOD_US 20000
+#define LOOP_PERIOD_MS 20ms
+
 extern OffboardComputerInterface offboardComputerInterface;
 
 extern void initialize();
