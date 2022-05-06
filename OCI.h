@@ -11,4 +11,5 @@ namespace OCI {
     extern float get_depth();
     extern void start();
     extern void update_values();
+    extern void publish_message(const char* topic_name, void* data);
 }

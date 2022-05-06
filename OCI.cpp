@@ -131,14 +131,23 @@ void mqtt_callback(MQTT::MessageData &md){
  *  Begin listening for mqtt messages from the offboard computer. 
  */
 void listen(){
-    // Subscribe to all topics under /robot
-    const char* sub_topic = "/robot/#";
+    // Subscribe to all topics under /robot/control
+    const char* sub_topic = "/robot/control/#";
 
     client->subscribe(sub_topic, MQTT::QOS2, mqtt_callback);
 
     while(true){
         client->yield(500);
     }
+}
+
+/**
+ *  Send a message to the offboard computer on thee topic.
+ */
+void OCI::publish_message(const char* topic_name, void* data){
+    MQTT::Message message;
+    message.payload = data;
+    client->publish(topic_name, message);
 }
 
 /**

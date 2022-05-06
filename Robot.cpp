@@ -40,4 +40,8 @@ void loop(){
     frontRightMotor.set(speed-strafe-rotation);
     backLeftMotor.set(-speed+strafe-rotation);
     backRightMotor.set(-speed-strafe+rotation);
+
+    int16_t accel_data[3];
+    mpu.readAccelData(accel_data);
+    OCI::publish_message("robot/data/accel/X", &accel_data[0]);
 }
